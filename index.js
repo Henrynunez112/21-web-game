@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         }
     }
     
-    fetchAllCards()
+    fetchAllCards();
     const game = async (id) =>{
         try{
             let drawCards = await axios.get(`https://deckofcardsapi.com/api/deck/${id}/draw/?count=2`);
@@ -26,8 +26,11 @@ document.addEventListener("DOMContentLoaded",()=>{
             for(i = 0; i < drawCards.data.cards.length; i++){
                 let img = document.createElement("img");
                 img.src = drawCards.data.cards[i]["image"];
+                debugger;
                 playerHand.appendChild(img)
             };
+            let score = document.createElement("p");
+            
         }
         catch(error){
             console.log(error)
