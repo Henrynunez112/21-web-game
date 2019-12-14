@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded",()=>{
         startGame.style.display = "none";
         game(deck_id);
     })
+
+    let hit = document.querySelector("#hit");
+    hit.addEventListener("click",()=>{
+        hitMe(deck_id);
+    })
+
     
     const fetchAllCards = async ()=>{
         try{
@@ -26,16 +32,34 @@ document.addEventListener("DOMContentLoaded",()=>{
             for(i = 0; i < drawCards.data.cards.length; i++){
                 let img = document.createElement("img");
                 img.src = drawCards.data.cards[i]["image"];
-                debugger;
+                // debugger;
                 playerHand.appendChild(img)
             };
             let score = document.createElement("p");
             
+
         }
         catch(error){
             console.log(error)
         }
-    }             
+    }
+    fetchAllCards()
+    const hitMe = async (idTwo)=>{
+        try{
+            let compDraw = await axios.get(`https://deckofcardsapi.com/api/deck/${idTwo}/draw/?count=2`);
+            let compHand = document.querySelector("#computerHand");
+            for(i=0; i < compDraw.data.cards.length; i++){
+                let imgTwo = document.createElement("img");
+                imgTwo.src = compDraw.data.cards[i]["image"];
+                debugger
+                compHand.appendChild(imgTwo)
+
+            }
+
+        }catch(error){
+
+        }
+    }        
 })
 
 
