@@ -6,10 +6,13 @@ document.addEventListener("DOMContentLoaded",()=>{
         startGame.style.display = "none";
         game(deck_id);
     })
-
     let hit = document.querySelector("#hit");
     hit.addEventListener("click",()=>{
         hitMe(deck_id);
+    })
+    let stay = document.querySelector("#stay");
+    stay.addEventListener("click",()=>{
+        draw(deck_id)
     })
 
     
@@ -35,7 +38,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 // debugger;
                 playerHand.appendChild(img)
             };
-            let score = document.createElement("p");
+            // let score = document.createElement("p");
 
 
         }
@@ -46,22 +49,34 @@ document.addEventListener("DOMContentLoaded",()=>{
     fetchAllCards()
     const hitMe = async (idTwo)=>{
         try{
-            let compDraw = await axios.get(`https://deckofcardsapi.com/api/deck/${idTwo}/draw/?count=1`);
-            let compHand = document.querySelector("#computerHand");
-            for(i=0; i < compDraw.data.cards.length; i++){
+            let hitDraw = await axios.get(`https://deckofcardsapi.com/api/deck/${idTwo}/draw/?count=1`);
+            for(let i=0; i < hitDraw.data.cards.length; i++){
                 let imgTwo = document.createElement("img");
-                imgTwo.src = compDraw.data.cards[i]["image"];
+                imgTwo.src = hitDraw.data.cards[i]["image"];
                 debugger
                 playerHand.appendChild(imgTwo)
-
+                
             }
+            
+        }catch(error){
+            
+        }
+    }  
+    fetchAllCards(); 
+    let draw = async (idThree) =>{
+        try{
+            let stayBtn = await axios.get(`https://deckofcardsapi.com/api/deck/${idThree}/draw/?count=2`)
+            let compHand = document.querySelector("#computerHand");
+            for(let i = 0; i < stayBtn.data.cards.length; i++){
+                let imgThree = document.querySelector("img");
+                imgThree.src = stayBtn.data.cards[i]["image"];
+                compHand.appendChild(imgThree)
+            }
+            
 
         }catch(error){
 
         }
-    }        
+    }
 })
-
-
-
 
