@@ -7,8 +7,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     let computerScore = 0;
     let playerHand = document.querySelector("#playerHand");
     let dealerHand = document.querySelector("#computerHand");
-    let h1 = document.createElement("h1");
-    let secondH1 = document.createElement("h1");
+    let h1 = document.createElement("p");
+    let secondH1 = document.createElement("p");
+
     let button = document.querySelector("#startGame");
     button.addEventListener("click",()=>{
         let startGame = document.querySelector("#startGame");
@@ -160,7 +161,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     const gameOver = () =>{
         // debugger
         if(total > 21){
-            h1.innerHTML = `BUSTED!!!`;
+            h1.innerHTML = `BUSTED!!!${total}`;
             hit.style.display = "none";
             stay.style.display = "none";
         }else if(total === 21){
@@ -171,6 +172,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             h1.innerHTML = `The House BUST with ${computerScore}. YOU WIN`;
             secondH1.innerHTML = ""
             stay.style.display = "none"
+            hit.style.display = "none"
         }
         else if(computerScore === total){
             h1.innerHTML = `ITS A TIE`
@@ -187,7 +189,8 @@ document.addEventListener("DOMContentLoaded",()=>{
             hit.style.display = "none";
             stay.style.display = "none"
         }
-    }    
+    }
+        
 })
 
 
