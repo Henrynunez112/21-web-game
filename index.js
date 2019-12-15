@@ -14,16 +14,16 @@ document.addEventListener("DOMContentLoaded",()=>{
         let startGame = document.querySelector("#startGame");
         startGame.style.display = "none";
         start(deck_id);
-        // debugger
+
     })
     let hit = document.querySelector("#hit");
     hit.addEventListener("click",()=>{
-        hitMe(deck_id);
+        hitMe(deck_id)
     })
     let stay = document.querySelector("#stay");
     stay.addEventListener("click",()=>{
-        console.log('2',deck_id)
-        draw(deck_id)
+        draw(deck_id);
+        stay.style.display = "none"
     })
     const fetchAllCards = async ()=>{
         try{
@@ -51,9 +51,10 @@ document.addEventListener("DOMContentLoaded",()=>{
                 
             };
             score(scoreArr)
-         
             h1.innerText = `Players Score: ${total}`
             playerHand.appendChild(h1)
+            gameOver();
+            // debugger
         }
         catch(error){
             console.log(error)
@@ -75,6 +76,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             // debugger;
             h1.innerHTML = `Player Score: ${total}`;
             playerHand.appendChild(h1)    
+            gameOver()
             
         }catch(error){
             console.log(error)
@@ -84,19 +86,20 @@ document.addEventListener("DOMContentLoaded",()=>{
     
     let draw = async (idThree) =>{
         try{
-            let stayBtn = await axios.get(`https://deckofcardsapi.com/api/deck/${idThree}/draw/?count=2`)
+            let stayBtn = await axios.get(`https://deckofcardsapi.com/api/deck/${idThree}/draw/?count=3`)
             for(let i = 0; i < stayBtn.data.cards.length; i++){
                 let imgThree = document.createElement("img");
                 imgThree.src = stayBtn.data.cards[i]["image"];
                 let numThree = stayBtn.data.cards[i]["value"]
                 dealerHand.appendChild(imgThree);
-                debugger
+                // debugger
                 compScore.push(numThree)
             }
             stayScore(compScore);
             // debugger;
             secondH1.innerHTML = `House Score: ${computerScore}`;
             dealerHand.appendChild(secondH1)
+            gameOver()
 
             
             
@@ -104,6 +107,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             console.log(error)
         }
     }
+
     const score = (arr) =>{
         let sum = 0;
         arr.forEach(el =>{
@@ -123,7 +127,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             }
         })
         // debugger;
-        total += sum
+        total += sum;
         hitArr = []
     }
     const stayScore = (arr) =>{
@@ -149,10 +153,38 @@ document.addEventListener("DOMContentLoaded",()=>{
         compScore = []
     }
 
-
-
+    const gameOver = () =>{
+        // debugger
+        if(total > 21){
+            h1.innerHTML = `BUSTED!!!`;
+            hit.style.display = "none";
+            stay.style.display = "none";
+        }else if(total === 21){
+            h1.innerHTML = `CONGRATS ${total}2121212121`;
+            hit.style.display = "none";
+            stay.style.display = "none";
+        }else if(computerScore > 21){
+            h1.innerHTML = `The House with ${computerScore} bust you win`;
+            secondH1.innerHTML = ""
+            stay.style.display = "none"
+        }
+        else if(computerScore === total){
+            h1.innerHTML = `ITS A TIE`
+            secondH1.innerHTML = `ITS A TIE`;
+            hit.style.display = "none";
+            stay.style.display = "none"
+        }
+        else if(computerScore > 0 && computerScore > total){
+            secondH1.innerHTML = `The house wins ${computerScore}`;
+            hit.style.display = "none";
+            stay.style.display = "none"         
+        }else if(computerScore > 0 && computerScore < total){
+            h1.innerHTML = `Congrats!!!!!!!!! you beat the house with ${total}`;
+            hit.style.display = "none";
+            stay.style.display = "none"
+        }
+    }    
 })
-
 
 
 
