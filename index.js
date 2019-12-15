@@ -4,11 +4,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     let hitArr = [];
     let compScore = [];
     let total = 0;
-    let hitTotal = 0;
     let computerScore = 0;
     let playerHand = document.querySelector("#playerHand");
-    let button = document.querySelector("#startGame");
+    let dealerHand = document.querySelector("#computerHand");
     let h1 = document.createElement("h1");
+    let secondH1 = document.createElement("h1");
+    let button = document.querySelector("#startGame");
     button.addEventListener("click",()=>{
         let startGame = document.querySelector("#startGame");
         startGame.style.display = "none";
@@ -52,7 +53,6 @@ document.addEventListener("DOMContentLoaded",()=>{
             score(scoreArr)
          
             h1.innerText = `Players Score: ${total}`
-            hitArr.pop()
             playerHand.appendChild(h1)
         }
         catch(error){
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 hitArr.push(numTwo)
             }
             score(hitArr)
-            debugger;
+            // debugger;
             h1.innerHTML = `Player Score: ${total}`;
             playerHand.appendChild(h1)    
             
@@ -86,17 +86,17 @@ document.addEventListener("DOMContentLoaded",()=>{
         try{
             let stayBtn = await axios.get(`https://deckofcardsapi.com/api/deck/${idThree}/draw/?count=2`)
             for(let i = 0; i < stayBtn.data.cards.length; i++){
-                let dealer = document.querySelector("#computerHand");
                 let imgThree = document.createElement("img");
                 imgThree.src = stayBtn.data.cards[i]["image"];
                 let numThree = stayBtn.data.cards[i]["value"]
-                dealer.appendChild(imgThree);
+                dealerHand.appendChild(imgThree);
+                debugger
                 compScore.push(numThree)
-                // debugger
             }
-            score(stayBtn);
-            // let p = document.querySelector("#compScore");
-            // p.innerText = 
+            stayScore(compScore);
+            // debugger;
+            secondH1.innerHTML = `House Score: ${computerScore}`;
+            dealerHand.appendChild(secondH1)
 
             
             
@@ -105,12 +105,10 @@ document.addEventListener("DOMContentLoaded",()=>{
         }
     }
     const score = (arr) =>{
-        let sum = 0
-
-        
+        let sum = 0;
         arr.forEach(el =>{
             if(el === "ACE"){
-                if(sum < 10){
+                if(sum < 11){
                     el = 11;
                     sum += el
                 }else{
@@ -124,9 +122,31 @@ document.addEventListener("DOMContentLoaded",()=>{
                 sum += Number(el)
             }
         })
-        debugger;
+        // debugger;
         total += sum
-        hitArr.pop()
+        hitArr = []
+    }
+    const stayScore = (arr) =>{
+        let sum = 0;
+        arr.forEach(el =>{
+            if(el === "ACE"){
+                if(sum < 11){
+                    el = 11;
+                    sum += el
+                }else{
+                    el = 1;
+                    sum += el
+                }
+            }else if(el === "KING" || el === "QUEEN" || el === "JACK"){
+                el = 10;
+                sum += el
+            }else{
+                sum += Number(el)
+            }
+        })
+        // debugger;
+        computerScore += sum
+        compScore = []
     }
 
 
