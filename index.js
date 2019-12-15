@@ -13,14 +13,18 @@ document.addEventListener("DOMContentLoaded",()=>{
     button.addEventListener("click",()=>{
         let startGame = document.querySelector("#startGame");
         startGame.style.display = "none";
+        hit.style.display = "block"
+        stay.style.display = "block"
         start(deck_id);
 
     })
     let hit = document.querySelector("#hit");
+    hit.style.display = "none"
     hit.addEventListener("click",()=>{
         hitMe(deck_id)
     })
     let stay = document.querySelector("#stay");
+    stay.style.display = "none"
     stay.addEventListener("click",()=>{
         draw(deck_id);
         stay.style.display = "none"
@@ -111,17 +115,17 @@ document.addEventListener("DOMContentLoaded",()=>{
     const score = (arr) =>{
         let sum = 0;
         arr.forEach(el =>{
-            if(el === "ACE"){
+            if(el === "KING" || el === "QUEEN" || el === "JACK"){
+               el = 10;
+               sum += el;
+            }else if(el === "ACE"){
                 if(sum < 11){
                     el = 11;
-                    sum += el
+                    sum += el;
                 }else{
                     el = 1;
                     sum += el
                 }
-            }else if(el === "KING" || el === "QUEEN" || el === "JACK"){
-                el = 10;
-                sum += el
             }else{
                 sum += Number(el)
             }
@@ -133,17 +137,17 @@ document.addEventListener("DOMContentLoaded",()=>{
     const stayScore = (arr) =>{
         let sum = 0;
         arr.forEach(el =>{
-            if(el === "ACE"){
+            if(el === "KING" || el === "QUEEN" || el === "JACK"){
+               el = 10;
+               sum += el;
+            }else if(el === "ACE"){
                 if(sum < 11){
                     el = 11;
-                    sum += el
+                    sum += el;
                 }else{
                     el = 1;
                     sum += el
                 }
-            }else if(el === "KING" || el === "QUEEN" || el === "JACK"){
-                el = 10;
-                sum += el
             }else{
                 sum += Number(el)
             }
@@ -164,7 +168,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             hit.style.display = "none";
             stay.style.display = "none";
         }else if(computerScore > 21){
-            h1.innerHTML = `The House with ${computerScore} bust you win`;
+            h1.innerHTML = `The House BUST with ${computerScore}. YOU WIN`;
             secondH1.innerHTML = ""
             stay.style.display = "none"
         }
