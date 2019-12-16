@@ -28,7 +28,6 @@ document.addEventListener("DOMContentLoaded",()=>{
     stay.style.display = "none"
     stay.addEventListener("click",()=>{
         draw(deck_id);
-        stay.style.display = "none"
     })
     const fetchAllCards = async ()=>{
         try{
@@ -44,7 +43,6 @@ document.addEventListener("DOMContentLoaded",()=>{
         
         try{
             let drawCards = await axios.get(`https://deckofcardsapi.com/api/deck/${id}/draw/?count=2`);
-            // debugger
             // debugger
             for(let i = 0; i < drawCards.data.cards.length; i++){
                 let img = document.createElement("img");
