@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         
         try{
             let drawCards = await axios.get(`https://deckofcardsapi.com/api/deck/${id}/draw/?count=2`);
-            // debugger
+            debugger
             for(let i = 0; i < drawCards.data.cards.length; i++){
                 let img = document.createElement("img");
                 img.src = drawCards.data.cards[i]["image"];
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             h1.innerText = `Players Score: ${total}`
             playerHand.appendChild(h1)
             gameOver();
-            // debugger
+            debugger
         }
         catch(error){
             console.log(error)
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 hitArr.push(numTwo)
             }
             score(hitArr)
-            // debugger;
+            debugger;
             h1.innerHTML = `Player Score: ${total}`;
             playerHand.appendChild(h1)    
             gameOver()
@@ -95,11 +95,11 @@ document.addEventListener("DOMContentLoaded",()=>{
                 imgThree.src = stayBtn.data.cards[i]["image"];
                 let numThree = stayBtn.data.cards[i]["value"]
                 dealerHand.appendChild(imgThree);
-                // debugger
+                debugger
                 compScore.push(numThree)
             }
             stayScore(compScore);
-            // debugger;
+            debugger;
             secondH1.innerHTML = `House Score: ${computerScore}`;
             dealerHand.appendChild(secondH1)
             gameOver()
@@ -121,6 +121,9 @@ document.addEventListener("DOMContentLoaded",()=>{
                 if(sum < 11){
                     el = 11;
                     sum += el;
+                }else if(sum === 20){
+                    el = 1;
+                    sum += el
                 }else{
                     el = 1;
                     sum += el
@@ -129,7 +132,7 @@ document.addEventListener("DOMContentLoaded",()=>{
                 sum += Number(el)
             }
         })
-        // debugger;
+        debugger;
         total += sum;
         hitArr = []
     }
@@ -137,27 +140,34 @@ document.addEventListener("DOMContentLoaded",()=>{
         let sum = 0;
         arr.forEach(el =>{
             if(el === "KING" || el === "QUEEN" || el === "JACK"){
+                debugger
                el = 10;
                sum += el;
             }else if(el === "ACE"){
                 if(sum < 11){
+                    debugger
                     el = 11;
                     sum += el;
+                }else if(sum === 20){
+                    el = 1;
+                    sum += el
                 }else{
+                    debugger
                     el = 1;
                     sum += el
                 }
             }else{
+                debugger
                 sum += Number(el)
             }
         })
-        // debugger;
+        debugger;
         computerScore += sum
         compScore = []
     }
 
     const gameOver = () =>{
-        // debugger
+        debugger
         if(total > 21){
             h1.innerHTML = `BUSTED!!!${total}`;
             hit.style.display = "none";
