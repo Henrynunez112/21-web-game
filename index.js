@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded",()=>{
     let deck_id;
     let scoreArr = [];
-    let hitArr = [];
     let compScore = [];
     let total = 0;
     let computerScore = 0;
@@ -9,6 +8,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     let dealerHand = document.querySelector("#computerHand");
     let h1 = document.createElement("p");
     let secondH1 = document.createElement("p");
+
+ 
 
     let button = document.querySelector("#startGame");
     button.addEventListener("click",()=>{
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             let res = await axios.get(`https://deckofcardsapi.com/api/deck/new/`);
             deck_id = res.data.deck_id;
             let shuffled = await axios.get(`https://deckofcardsapi.com/api/deck/${deck_id}/shuffle/`);
+            debugger
         }catch(error){
             console.log(error)
         }
@@ -73,9 +75,9 @@ document.addEventListener("DOMContentLoaded",()=>{
                 imgTwo.src = hitDraw.data.cards[i]["image"];
                 let numTwo = hitDraw.data.cards[i]["value"];
                 playerHand.appendChild(imgTwo)
-                hitArr.push(numTwo)
+                scoreArr.push(numTwo)
             }
-            score(hitArr)
+            score(scoreArr)
             debugger;
             h1.innerHTML = `Player Score: ${total}`;
             playerHand.appendChild(h1)    
@@ -134,7 +136,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         })
         debugger;
         total += sum;
-        hitArr = []
+        scoreArr = []
     }
     const stayScore = (arr) =>{
         let sum = 0;
@@ -172,32 +174,40 @@ document.addEventListener("DOMContentLoaded",()=>{
             h1.innerHTML = `BUSTED!!!${total}`;
             hit.style.display = "none";
             stay.style.display = "none";
+            debugger
         }else if(total === 21){
             h1.innerHTML = `CONGRATS ${total}2121212121`;
             hit.style.display = "none";
-            stay.style.display = "none";
+            stay.style.display = "none";            
+            debugger
         }else if(computerScore > 21){
             h1.innerHTML = `The House BUST with ${computerScore}. YOU WIN`;
             secondH1.innerHTML = ""
             stay.style.display = "none"
-            hit.style.display = "none"
+            hit.style.display = "none"            
+            debugger
         }
         else if(computerScore === total){
             h1.innerHTML = `ITS A TIE`
             secondH1.innerHTML = `ITS A TIE`;
             hit.style.display = "none";
-            stay.style.display = "none"
+            stay.style.display = "none"            
+            debugger
         }
         else if(computerScore > 0 && computerScore > total){
             secondH1.innerHTML = `The house wins ${computerScore}`;
             hit.style.display = "none";
-            stay.style.display = "none"         
+            stay.style.display = "none"            
+            debugger         
         }else if(computerScore > 0 && computerScore < total){
             h1.innerHTML = `Congrats!!!!!!!!! you beat the house with ${total}`;
             hit.style.display = "none";
-            stay.style.display = "none"
+            stay.style.display = "none"            
+            debugger
         }
+        //possible reset button function
     }
+
         
 })
 
