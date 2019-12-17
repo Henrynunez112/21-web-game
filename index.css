@@ -18,7 +18,7 @@ p{
     text-size-adjust: 40px;
 }
 button{
-    display: grid;
+    display: block;
     justify-content: flex-start;
-
+    margin-left: 674px;
 }
