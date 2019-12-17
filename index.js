@@ -20,6 +20,11 @@ document.addEventListener("DOMContentLoaded",()=>{
         start(deck_id);
 
     })
+    let reset = document.querySelector("#reset");
+    reset.style.display = "none";
+    reset.addEventListener("click",()=>{
+        location.reload();
+    })
     let hit = document.querySelector("#hit");
     hit.style.display = "none"
     hit.addEventListener("click",()=>{
@@ -174,37 +179,43 @@ document.addEventListener("DOMContentLoaded",()=>{
             h1.innerHTML = `BUSTED!!!${total}`;
             hit.style.display = "none";
             stay.style.display = "none";
+            reset.style.display = "block"
             //location.reload()
             debugger
         }else if(total === 21){
             h1.innerHTML = `BLACKJACK`;
             hit.style.display = "none";
-            stay.style.display = "none";           
+            stay.style.display = "none";
+            reset.style.display = "block"           
             debugger
         }else if(computerScore > 21){
             h1.innerHTML = `The House BUST with ${computerScore}. YOU WIN`;
             secondH1.innerHTML = "";
             stay.style.display = "none";
-            hit.style.display = "none";                       
+            hit.style.display = "none";
+            reset.style.display = "block"                       
             debugger
         }
         else if(computerScore === total){
             h1.innerHTML = `ITS A TIE`
             secondH1.innerHTML = `ITS A TIE`;
             hit.style.display = "none";
-            stay.style.display = "none";                       
+            stay.style.display = "none"; 
+            reset.style.display = "block"                      
             debugger
         }
         else if(computerScore > 0 && computerScore > total){
             secondH1.innerHTML = `The house wins ${computerScore}`;
             hit.style.display = "none";
             stay.style.display = "none";
+            reset.style.display = "block"
                        
             debugger         
         }else if(computerScore > 0 && computerScore < total){
             h1.innerHTML = `Congrats!!!!!!!!! you beat the house with ${total}`;
             hit.style.display = "none";
-            stay.style.display = "none";                       
+            stay.style.display = "none";
+            reset.style.display = "block"                       
             debugger
         }
     }
