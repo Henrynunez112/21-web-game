@@ -1,11 +1,24 @@
+body{
+    background-color: darkgreen;
+    color: white;
+}
 h1, h5{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    text-align: center;
 }
 img{
     display: inline;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     scale: 400px;
+}
+p{
+    text-size-adjust: 40px;
+}
+button{
+    display: grid;
+    justify-content: flex-start;
+
 }
